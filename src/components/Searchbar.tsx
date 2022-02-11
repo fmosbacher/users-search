@@ -7,7 +7,12 @@ interface SearchbarProps {
   onClick: (e: React.MouseEvent<HTMLFormElement>) => void;
 }
 
-const Searchbar = ({ value, onSubmit, onChange, onClick }: SearchbarProps) => {
+const Searchbar: React.FC<SearchbarProps> = ({
+  value,
+  onSubmit,
+  onChange,
+  onClick,
+}: SearchbarProps) => {
   return (
     <form className="searchbar" onSubmit={onSubmit} onClick={onClick}>
       <input placeholder="Buscar usuário" value={value} onChange={onChange} />

@@ -17,11 +17,6 @@
     &:hover {
       background-color: #f1f5f9;
     }
-
-    img {
-      width: 18px;
-      height: 18px;
-    }
   }
 
   &__name {
@@ -38,29 +33,9 @@
     }
   }
 
-  &__x {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
+  &__empty {
     &:hover {
-      background-color: #cbd5e1;
-    }
-
-    &:focus {
-      outline: none;
-      background-color: #cbd5e1;
-    }
-  }
-
-  &--empty {
-    li {
-      &:hover {
-        background-color: transparent;
-      }
+      background-color: transparent;
     }
   }
 }

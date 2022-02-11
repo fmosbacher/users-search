@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../types';
-import xIcon from '../../icons/x.svg';
-import clockIcon from '../../icons/clock.svg';
+import { History } from './History';
 
 interface DropdownProps {
   searchTerm: string;
@@ -44,41 +43,38 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   if (searchTerm?.length === 0) {
     return (
-      <ul className="dropdown dropdown--empty">
-        <li>Seus resultados aparecerão aqui</li>
+      <ul className="dropdown">
+        <li className="dropdown__info">Seus resultados aparecerão aqui</li>
+        <History
+          history={history}
+          onSaveResult={saveResult}
+          onRemoveResult={removeResult}
+        />
       </ul>
     );
   }
 
   if (results?.length === 0) {
     return (
-      <ul className="dropdown dropdown--empty">
-        <li>Nenhum resultado encontrado</li>
+      <ul className="dropdown">
+        <li className="dropdown__info">Nenhum resultado encontrado</li>{' '}
+        <History
+          history={history}
+          onSaveResult={saveResult}
+          onRemoveResult={removeResult}
+        />
       </ul>
     );
   }
 
   return (
     <ul className="dropdown">
-      {history
-        .filter((result) => result.name.includes(searchTerm))
-        .map((result) => (
-          <li key={result.id}>
-            <img src={clockIcon} alt="Clock" />
-            <button
-              className="dropdown__name"
-              onClick={() => saveResult(result)}
-            >
-              {result.name}
-            </button>
-            <button
-              className="dropdown__x"
-              onClick={() => removeResult(result)}
-            >
-              <img src={xIcon} alt="Close button" />
-            </button>
-          </li>
-        ))}
+      <History
+        history={history}
+        searchTerm={searchTerm}
+        onSaveResult={saveResult}
+        onRemoveResult={removeResult}
+      />
       {results.map((result) => (
         <li key={result.id}>
           <button className="dropdown__name" onClick={() => saveResult(result)}>
