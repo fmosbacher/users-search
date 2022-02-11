@@ -25,7 +25,7 @@ const History: React.FC<HistoryProps> = ({
             result.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
         .map((result) => (
-          <li key={result.id}>
+          <li key={result.id} className="dropdown__history">
             <img src={clockIcon} className="dropdown__clock" alt="Clock" />
             <button
               className="dropdown__name"

@@ -8,7 +8,9 @@
   max-height: 560px;
   overflow-y: auto;
 
-  li {
+  &__history,
+  &__results,
+  &__info {
     display: flex;
     padding: 12px 32px;
     align-items: center;
@@ -16,6 +18,12 @@
 
     &:hover {
       background-color: #f1f5f9;
+    }
+  }
+
+  &__info {
+    &:hover {
+      background-color: transparent;
     }
   }
 
@@ -30,12 +38,6 @@
     &:focus {
       outline: none;
       text-decoration: underline;
-    }
-  }
-
-  &__empty {
-    &:hover {
-      background-color: transparent;
     }
   }
 }

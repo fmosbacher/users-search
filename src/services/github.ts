@@ -2,7 +2,7 @@ import { User } from '../types';
 
 const queryUser = async (user: string): Promise<User[]> => {
   const res = await fetch(
-    `https://api.github.com/search/users?q=${user}+in:user`,
+    `https://api.github.com/search/users?q=${user}+in:login`,
     {
       headers: {
         Accept: 'application/json',

@@ -76,7 +76,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onRemoveResult={removeResult}
       />
       {results.map((result) => (
-        <li key={result.id}>
+        <li key={result.id} className="dropdown__results">
           <button className="dropdown__name" onClick={() => saveResult(result)}>
             {result.name}
           </button>
