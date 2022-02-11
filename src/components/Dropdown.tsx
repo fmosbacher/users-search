@@ -6,7 +6,7 @@ import clockIcon from '../../icons/clock.svg';
 interface DropdownProps {
   searchTerm: string;
   results: User[];
-  onSelectedResult: (result: string) => void;
+  onSelectedResult: (result: User) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -14,14 +14,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   results,
   onSelectedResult,
 }: DropdownProps) => {
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState<User[]>([]);
 
   useEffect(() => {
     const savedResults = localStorage.getItem('results');
     if (savedResults) setHistory(JSON.parse(savedResults));
   }, []);
 
-  const saveResult = (result: string) => {
+  const saveResult = (result: User) => {
     onSelectedResult(result);
 
     if (history.length > 0) {
@@ -33,9 +33,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  const removeResult = (resultToBeRemoved: string) => {
+  const removeResult = (resultToBeRemoved: User) => {
     const filteredResults = history.filter(
-      (result) => result !== resultToBeRemoved
+      (result) => result.name !== resultToBeRemoved.name
     );
 
     localStorage.setItem('results', JSON.stringify(filteredResults));
@@ -61,15 +61,15 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <ul className="dropdown">
       {history
-        .filter((result) => result.includes(searchTerm))
-        .map((result, i) => (
-          <li key={i}>
+        .filter((result) => result.name.includes(searchTerm))
+        .map((result) => (
+          <li key={result.id}>
             <img src={clockIcon} alt="Clock" />
             <button
               className="dropdown__name"
               onClick={() => saveResult(result)}
             >
-              {result}
+              {result.name}
             </button>
             <button
               className="dropdown__x"
@@ -79,12 +79,9 @@ const Dropdown: React.FC<DropdownProps> = ({
             </button>
           </li>
         ))}
-      {results.map((result, i) => (
-        <li key={i}>
-          <button
-            className="dropdown__name"
-            onClick={() => saveResult(result.name)}
-          >
+      {results.map((result) => (
+        <li key={result.id}>
+          <button className="dropdown__name" onClick={() => saveResult(result)}>
             {result.name}
           </button>
         </li>

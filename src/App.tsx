@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styles/main.scss';
 import { Dropdown, Searchbar } from './components';
 import { User } from './types';
+import { queryUser } from './services/github';
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,22 +14,7 @@ const App: React.FC = () => {
     if (searchTerm.length === 0) return;
 
     try {
-      const res = await fetch(
-        `https://api.github.com/search/users?q=${searchTerm}+in:user`,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const data = await res.json();
-      const newResults = data.items.map(
-        (item: { login: string; id: number }) => ({
-          name: item.login,
-          id: item.id,
-        })
-      );
+      const newResults = await queryUser(searchTerm);
       setResults(newResults as User[]);
     } catch (err) {
       console.error(err);
@@ -50,9 +36,14 @@ const App: React.FC = () => {
     debouncedFetch();
   };
 
-  const handleSelectedResult = (result: string) => {
+  const handleSelectedResult = (result: User) => {
     setShowDropdown(false);
-    setSearchTerm(result);
+    setSearchTerm(result.name);
+  };
+
+  const handleClick = () => {
+    setShowDropdown(true);
+    debouncedFetch();
   };
 
   return (
@@ -62,7 +53,7 @@ const App: React.FC = () => {
           value={searchTerm}
           onSubmit={handleSubmit}
           onChange={handleInputChange}
-          onClick={() => setShowDropdown(true)}
+          onClick={handleClick}
         />
         {showDropdown && (
           <Dropdown
