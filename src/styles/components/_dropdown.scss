@@ -8,9 +8,7 @@
   max-height: 560px;
   overflow-y: auto;
 
-  &__history,
-  &__results,
-  &__info {
+  &__item {
     display: flex;
     padding: 12px 32px;
     align-items: center;
@@ -19,11 +17,11 @@
     &:hover {
       background-color: #f1f5f9;
     }
-  }
 
-  &__info {
-    &:hover {
-      background-color: transparent;
+    &--info {
+      &:hover {
+        background-color: transparent;
+      }
     }
   }
 

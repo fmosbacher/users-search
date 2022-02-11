@@ -44,7 +44,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   if (searchTerm?.length === 0) {
     return (
       <ul className="dropdown">
-        <li className="dropdown__info">Seus resultados aparecerão aqui</li>
+        <li className="dropdown__item dropdown__item--info">
+          Seus resultados aparecerão aqui
+        </li>
         <History
           history={history}
           onSaveResult={saveResult}
@@ -57,7 +59,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   if (results?.length === 0) {
     return (
       <ul className="dropdown">
-        <li className="dropdown__info">Nenhum resultado encontrado</li>{' '}
+        <li className="dropdown__item dropdown__item--info">
+          Nenhum resultado encontrado
+        </li>{' '}
         <History
           history={history}
           onSaveResult={saveResult}
@@ -76,7 +80,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onRemoveResult={removeResult}
       />
       {results.map((result) => (
-        <li key={result.id} className="dropdown__results">
+        <li key={result.id} className="dropdown__item">
           <button className="dropdown__name" onClick={() => saveResult(result)}>
             {result.name}
           </button>
